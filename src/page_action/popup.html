@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>ReSendMeLater</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+     .container {
+       margin: 20px 0px;
+     }
+     #submit {
+       margin-top: 10px;
+     }
+     #date {
+       margin: 0;
+       border-bottom-right-radius: 0;
+       border-bottom-left-radius: 0;
+     }
+     #memo {
+       margin: 0;
+       margin-top: -1;
+       border-top-right-radius: 0;
+       border-top-left-radius: 0;
+     }
+    </style>
+  </head>
+  <body>
+    <section class="container">
+
+        <input id="date" type="date" class="form-control" placeholder="日付" required autofocus>
+        <input id="memo" type="text" class="form-control" placeholder="メモ" required autofocus>
+        <button id="submit" type="submit" class="btn btn-primary btn-block disabled">ReSendMeLater</button>
+
+    </section>
+    <script src="../../js/jquery/jquery.min.js"></script>
+    <script src="../../js/bootstrap/bootstrap.min.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

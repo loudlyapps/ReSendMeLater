@@ -1,0 +1,108 @@
+<html>
+<meta charset="UTF-8">
+<head>
+  <title>ReSendMeLater</title>
+<script src="../../js/jquery/jquery.min.js"></script>
+<script src="../util.js"></script>
+<script src="../../js/xdate.js"></script>
+<script src="options.js"></script>
+<style>
+body {
+    margin:0;
+    padding:0;
+    font-family: 'trebuchet MS';
+}
+#logo {
+    position: absolute;
+    right: 50px;
+    top: 50px;
+
+}
+#wrap {
+    position:absolute;
+    width:800px;
+    height:500px;
+    left:50%;
+    top:50%;
+    margin-left:-400px;
+    margin-top:-250px;
+}
+#r {
+    color: #FF5555;
+}
+h1 {
+    font-family: 'trebuchet MS';
+}
+
+.item {
+  margin: 1em;
+}
+.subject {
+  font-size: 130%;
+  font-weight: bold;
+  margin-left: -1em;
+}
+ a {
+ color: black;
+ text-decoration: none;
+ }
+.notactive {
+   text-decoration: line-through;
+}
+.from {
+  margin-left: 1em;
+   font-size: 90%;
+  color: gray;
+   float: left;
+}
+.message {
+}
+.date {
+   text-align: right;
+}
+.messageline {
+   clear: both;
+   border-width: 1px 0px 0px 0px;
+  border-style: solid;
+  border-color: silver;
+   height: 1px;
+  padding: 0px;
+  margin: 3px;
+}
+
+ /* .title {
+ font-size: 130%;
+ margin-left: 10px;
+ }
+ .item {
+ margin-bottom: 0.5em;
+ margin-left: 1em;
+ }
+ .url {
+ margin-left: 30px;
+ font-style: italic;
+ }
+ .description {
+ margin-left: 30px;
+ padding: 5px;
+ }
+ .option {
+ margin-left: 40px;
+ }
+ input {
+ margin: 0 10px;
+ } */
+
+</style>
+</head>
+<body>
+  <div id="logo">
+    <img src='../../icons/icon128.png'>
+  </div>
+  <div id="wrap">
+    <h1><i>ReSendMeLater</i></h1>
+    <div id="progress"><img src="/src/imgs/ajax-loader.gif" /></div>
+    <div id="list"></div>
+  </div>
+</body>
+</html>
