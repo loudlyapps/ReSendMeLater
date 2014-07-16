@@ -3,22 +3,22 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function active_check(data) {
-  console.log(data)
-  var laterData = data["laterData"];
-  var active = [];
-  var complete = [];
-  for (var i in laterData) {
-    var d = laterData[i];
-    if (d.isActive == 't') {
-      active.push(d);
-    } else {
-      complete.push(d);
+    console.log(data)
+    var laterData = data["laterData"];
+    var active = [];
+    var complete = [];
+    for (var i in laterData) {
+        var d = laterData[i];
+        if (d.isActive == 't') {
+            active.push(d);
+        } else {
+            complete.push(d);
+        }
     }
-  }
 
-  console.log(complete);
-  render(active);
-  render(complete);
+    console.log(complete);
+    render(active);
+    render(complete);
 }
 
 function render(laterData) {
@@ -47,7 +47,7 @@ function render(laterData) {
             $('#from' + id).text(from);
             $('#' + id).show();
             $('#progress').hide();
-       });
+        });
 
         var item = $('<div>', {
             id: d.id,
@@ -89,9 +89,9 @@ function render(laterData) {
             class: 'message',
             text: d.message
         }).appendTo(item).click(function() {
-                var str = d.date + ' ' + d.message;
-                show_input_dialog(d.id, str);
-            });
+            var str = d.date + ' ' + d.message;
+            show_input_dialog(d.id, str);
+        });
 
         item.appendTo(table);
 

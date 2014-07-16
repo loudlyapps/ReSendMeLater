@@ -4,14 +4,14 @@ $(document).ready( function() {
         var date = $('#date').val().replace(/\-/g, '/');
         var memo = $('#memo').val();
         chrome.runtime.getBackgroundPage(function(bp) {
-          chrome.runtime.sendMessage({
-            text: date + ' ' + (memo || ''),
-            id: bp.gmail_last_threadId()
-          });
-          setTimeout(function() {
-            window.opener = 'myself';
-            window.close();
-          }, 1000);
+            chrome.runtime.sendMessage({
+                text: date + ' ' + (memo || ''),
+                id: bp.gmail_last_threadId()
+            });
+            setTimeout(function() {
+                window.opener = 'myself';
+                window.close();
+            }, 1000);
         })
         // chrome.runtime.sendMessage({
         //     text: date + ' ' + (memo || ''),

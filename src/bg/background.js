@@ -1,29 +1,29 @@
 document.addEventListener('DOMContentLoaded', function(e) {
-  chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
-    console.log(token);
-  });
+    chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
+        console.log(token);
+    });
 
     create_contextmenus();
 
-chrome.commands.onCommand.addListener(function(commad) {
-    console.log('Command:', commnad);
-});
+    chrome.commands.onCommand.addListener(function(commad) {
+        console.log('Command:', commnad);
+    });
 }, false);
 
 chrome.alarms.create("later_check", {"periodInMinutes": 1});
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
-  if (alarm.name == "later_check") {
-    later_check();
-  }
+    if (alarm.name == "later_check") {
+        later_check();
+    }
 });
 
 chrome.runtime.onMessage.addListener(function(req, sender, callback) {
-  // if (sender.tab) {
+    // if (sender.tab) {
     if (req.text != undefined && req.id != undefined) {
         parseData(req.text, req.id);
     }
-  // }
+    // }
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {

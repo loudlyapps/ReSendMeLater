@@ -1,37 +1,37 @@
 // Gmailの最後に開いたThreadのID
 function gmail_last_threadId(threadId) {
-  if (threadId) {
-    localStorage['gmail_threadId'] = threadId;
-  } else {
-    return localStorage['gmail_threadId'];
-  }
+    if (threadId) {
+        localStorage['gmail_threadId'] = threadId;
+    } else {
+        return localStorage['gmail_threadId'];
+    }
 }
 
 function get_data(cb) {
-  chrome.storage.sync.get(["laterData"], function(result) {
-    if (result.laterData == undefined) { result.laterData = []; }
-    if (typeof cb == "function" ) { cb(result); }
-  });
+    chrome.storage.sync.get(["laterData"], function(result) {
+        if (result.laterData == undefined) { result.laterData = []; }
+        if (typeof cb == "function" ) { cb(result); }
+    });
 }
 
 function add_data(data) {
-  get_data(function(result) {
-      var laterData = result.laterData;
-      var add = false;
-      for (var i in laterData) {
-          if (laterData[i].id == data.id) {
-              laterData[i] = data;
-              add = true;
-          }
-      }
-      if (!add) {
-          result.laterData.push(data);
-      }
-    chrome.storage.sync.set({laterData: result.laterData}, function() {
-      console.log('set data:');
-      console.log(result);
+    get_data(function(result) {
+        var laterData = result.laterData;
+        var add = false;
+        for (var i in laterData) {
+            if (laterData[i].id == data.id) {
+                laterData[i] = data;
+                add = true;
+            }
+        }
+        if (!add) {
+            result.laterData.push(data);
+        }
+        chrome.storage.sync.set({laterData: result.laterData}, function() {
+            console.log('set data:');
+            console.log(result);
+        });
     });
-  });
 }
 
 function set_data(data) {
@@ -55,28 +55,28 @@ function del_data(id) {
 }
 
 function add_zero(str, length) {
-  for (var i=0; i<length; i++) {
-    str = '0' + str;
-  }
-  return str.substr(length * -1, length);
+    for (var i=0; i<length; i++) {
+        str = '0' + str;
+    }
+    return str.substr(length * -1, length);
 }
 
 function later_check() {
-  get_data(function(result) {
-      var today = new XDate();
-      var t = today.toString('yyyy/MM/dd');
-      var data = result.laterData;
+    get_data(function(result) {
+        var today = new XDate();
+        var t = today.toString('yyyy/MM/dd');
+        var data = result.laterData;
 
-      var item = [];
-      for (var i in data) {
-          var d = data[i];
-          if (t >= d["date"] && d["isActive"] == 't') {
-              item.push(d);
-              resend(d, resended);
-          }
-      }
-      console.log(item);
-  });
+        var item = [];
+        for (var i in data) {
+            var d = data[i];
+            if (t >= d["date"] && d["isActive"] == 't') {
+                item.push(d);
+                resend(d, resended);
+            }
+        }
+        console.log(item);
+    });
 }
 
 function send_newmail(url, token, item) {
@@ -180,7 +180,7 @@ function resended(id) {
 }
 
 function clear_storage() {
-  chrome.storage.sync.clear();
+    chrome.storage.sync.clear();
 }
 
 function display_storage() {
@@ -217,63 +217,63 @@ function parseData(text, id) {
 }
 
 function str2date(str) {
-  var date = undefined;
-  var today = new XDate();
+    var date = undefined;
+    var today = new XDate();
 
-  // yyyy/mm/dd
-  if (/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/.test(str)) {
-    date = RegExp.$1 + "/" + RegExp.$2 + "/" + RegExp.$3;
-  }
-
-  // yyyy/mm
-  else if (/^(\d{4})\/(\d{1,2})$/.test(str)) {
-    date = RegExp.$1 + "/" + RegExp.$2 + '/01'; // TODO: 過去日は弾いた方がいい？
-  }
-
-  // dd next mm/dd
-  else if (/^(\d{1,2})\/(\d{1,2})$/.test(str)) {
-    var m = RegExp.$1;
-    var d = RegExp.$2;
-    if ((m * 100 + d * 1) > today.toString('MMdd') * 1) {
-      date = today.getFullYear() + "/" + m + "/" + d;
-    } else {
-      date = (today.getFullYear() * 1 + 1) + "/" + m + "/" + d;
+    // yyyy/mm/dd
+    if (/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/.test(str)) {
+        date = RegExp.$1 + "/" + RegExp.$2 + "/" + RegExp.$3;
     }
-  }
 
-  // dd next dd
-  else if (/^(\d{1,2})$/.test(str)) {
-    var d = RegExp.$1;
-    if (d > today.toString('dd') * 1) {
-        date = today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + d;
-      } else {
-        var next = today.addMonths(1);
-        date = next.getFullYear() + "/" + (next.getMonth() + 1) + "/" + d;
-      }
-  }
+    // yyyy/mm
+    else if (/^(\d{4})\/(\d{1,2})$/.test(str)) {
+        date = RegExp.$1 + "/" + RegExp.$2 + '/01'; // TODO: 過去日は弾いた方がいい？
+    }
 
-  // +N N day
-  else if (/^\+(\d+)$/.test(str)) {
-    date = today.addDays(RegExp.$1).toString('yyyy/MM/dd');
-  }
+    // dd next mm/dd
+    else if (/^(\d{1,2})\/(\d{1,2})$/.test(str)) {
+        var m = RegExp.$1;
+        var d = RegExp.$2;
+        if ((m * 100 + d * 1) > today.toString('MMdd') * 1) {
+            date = today.getFullYear() + "/" + m + "/" + d;
+        } else {
+            date = (today.getFullYear() * 1 + 1) + "/" + m + "/" + d;
+        }
+    }
 
-  // +Nw N week
-  else if (/^\+(\d+)[wW]$/.test(str)) {
-    date = today.addWeeks(RegExp.$1).toString('yyyy/MM/dd');
+    // dd next dd
+    else if (/^(\d{1,2})$/.test(str)) {
+        var d = RegExp.$1;
+        if (d > today.toString('dd') * 1) {
+            date = today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + d;
+        } else {
+            var next = today.addMonths(1);
+            date = next.getFullYear() + "/" + (next.getMonth() + 1) + "/" + d;
+        }
+    }
 
-  }
+    // +N N day
+    else if (/^\+(\d+)$/.test(str)) {
+        date = today.addDays(RegExp.$1).toString('yyyy/MM/dd');
+    }
 
-  // +Nw N month
-  else if (/^\+(\d+)[mM]$/.test(str)) {
-    date = today.addMonths(RegExp.$1).toString('yyyy/MM/dd');
-  }
+    // +Nw N week
+    else if (/^\+(\d+)[wW]$/.test(str)) {
+        date = today.addWeeks(RegExp.$1).toString('yyyy/MM/dd');
+
+    }
+
+    // +Nw N month
+    else if (/^\+(\d+)[mM]$/.test(str)) {
+        date = today.addMonths(RegExp.$1).toString('yyyy/MM/dd');
+    }
 
 
-  if (date != undefined && /^(\d{4})\/(\d{1,2})\/(\d{1,2})$/.test(date)) {
-    date = RegExp.$1 + "/" + add_zero(RegExp.$2, 2) + "/" + add_zero(RegExp.$3, 2);
-  }
+    if (date != undefined && /^(\d{4})\/(\d{1,2})\/(\d{1,2})$/.test(date)) {
+        date = RegExp.$1 + "/" + add_zero(RegExp.$2, 2) + "/" + add_zero(RegExp.$3, 2);
+    }
 
-  return date;
+    return date;
 }
 
 function create_contextmenus() {
