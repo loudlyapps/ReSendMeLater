@@ -1,6 +1,11 @@
 window.addEventListener('keyup', function(e) {
     var name = e.target.tagName;
-    if (name == 'TEXTAREA' || name == 'INPUT' || e.target.contentEditable == 'plaintext-only') { return; }
+
+    var isTextarea = (name == 'TEXTAREA')? true: false;
+    var isInput = (name == 'INPUT')? true: false;
+    var isContentEditablePlaintext = (e.target.contentEditable == 'plaintext-only')? true: false;
+    var isContentEditable = (e.target.contentEditable == 'true')? true: false;
+    if (isTextarea || isInput || isContentEditablePlaintext || isContentEditable) { return; }
 
     if (!/.*\/[0-9a-z]{16}$/.test(location.href)) { return; }
 
