@@ -45,6 +45,7 @@
         }
     },
     "permissions": [
+        "notifications",
         "tabs",
         "contextMenus",
         "storage",

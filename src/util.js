@@ -28,8 +28,11 @@ function add_data(data) {
             result.laterData.push(data);
         }
         chrome.storage.sync.set({laterData: result.laterData}, function() {
-            console.log('set data:');
-            console.log(result);
+            var message = '';
+            message += 'Added threadId: ' + data.id;
+            if (message) { message += ' with message ' + data.message; };
+            message += ' at ' + data.date;
+            notification(message);
         });
     });
 }
@@ -322,4 +325,13 @@ function create_contextmenus() {
         parentId: 'parent',
         id: 'list'
     });
+}
+
+function notification(message) {
+    chrome.notifications.create('ReSendMeLater', {
+        type: 'basic',
+        title: 'ReSendMeLater',
+        iconUrl: chrome.extension.getURL('icons/icon128.png'),
+        message: message
+    }, function(id) { console.log('notif'); });
 }
