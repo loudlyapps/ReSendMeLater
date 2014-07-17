@@ -72,6 +72,10 @@ h1 {
   margin: 3px;
 }
 
+#clear_complete {
+   margin-top: 10px;
+}
+
  /* .title {
  font-size: 130%;
  margin-left: 10px;
@@ -111,8 +115,12 @@ h1 {
       <div class="tab-content">
         <div class="tab-pane active" id="active">
           <div id="progress"><img src="/src/imgs/ajax-loader.gif" /></div>
+          <div id="active_list"></div>
         </div>
-        <div class="tab-pane" id="complete"></div>
+        <div class="tab-pane" id="complete">
+          <button id="clear_complete" type="button" class="btn btn-primary">完了済みを削除</button>
+          <div id="complete_list"></div>
+        </div>
       </div>
     </div>
   </div>

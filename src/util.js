@@ -57,6 +57,19 @@ function del_data(id) {
     });
 }
 
+function clear_complete() {
+    get_data(function(result) {
+        var laterData = result.laterData;
+        var data = [];
+        for (var i in laterData) {
+            if (laterData[i]['isActive'] == 't') {
+                data.push(laterData[i]);
+            }
+        }
+        set_data(data);
+    });
+}
+
 function add_zero(str, length) {
     for (var i=0; i<length; i++) {
         str = '0' + str;

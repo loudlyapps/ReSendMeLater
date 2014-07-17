@@ -1,9 +1,19 @@
+var clear_complete_flg = false; // TODO: 他の方法を考える
+
 document.addEventListener('DOMContentLoaded', function() {
     get_data(active_check);
+    $('#clear_complete').click(function() {
+        $('#active_list').html('');
+        $('#progress').show();
+        $('.nav-tabs a:first').tab('show');
+        clear_complete();
+        clear_complete_flg = true;
+        get_data(active_check);
+        $('#complete_list').html('');
+     });
 });
 
-function active_check(data) {
-    $('.tabs a:last').tab('show');
+function active_check(data, type) {
     console.log(data);
     var laterData = data["laterData"];
     var active = [];
@@ -21,7 +31,10 @@ function active_check(data) {
 
     console.log(complete);
     render(active, 'active');
-    render(complete, 'complete');
+    if (clear_complete_flg == false) {
+        render(complete, 'complete');
+    }
+    clear_complete_flg = false;
 }
 
 function render(laterData, area) {
@@ -99,6 +112,6 @@ function render(laterData, area) {
         item.appendTo(table);
 
     }
-    $('#' + area).append(table);
+    $('#' + area + '_list').append(table);
 
 }
