@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
     });
 }, false);
 
-chrome.alarms.create("later_check", {"periodInMinutes": 1});
+chrome.alarms.create("later_check", {"periodInMinutes": 15});
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
     if (alarm.name == "later_check") {
