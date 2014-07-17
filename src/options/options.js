@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function active_check(data) {
-    console.log(data)
+    $('.tabs a:last').tab('show');
+    console.log(data);
     var laterData = data["laterData"];
     var active = [];
     var complete = [];
@@ -16,12 +17,14 @@ function active_check(data) {
         }
     }
 
+
+
     console.log(complete);
-    render(active);
-    render(complete);
+    render(active, 'active');
+    render(complete, 'complete');
 }
 
-function render(laterData) {
+function render(laterData, area) {
 
     laterData.sort(function(a, b) {
         var x = a.date;
@@ -96,6 +99,6 @@ function render(laterData) {
         item.appendTo(table);
 
     }
-    $('#list').append(table);
+    $('#' + area).append(table);
 
 }
