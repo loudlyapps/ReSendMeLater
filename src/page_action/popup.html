@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>ReSendMeLater</title>
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/datepicker3.css" rel="stylesheet">
     <style>
      .container {
        margin: 20px 0px;
@@ -15,6 +16,7 @@
        margin: 0;
        border-bottom-right-radius: 0;
        border-bottom-left-radius: 0;
+       display: none;
      }
      #memo {
        margin: 0;
@@ -22,18 +24,25 @@
        border-top-right-radius: 0;
        border-top-left-radius: 0;
      }
+     #title {
+       text-align: center;
+     }
     </style>
   </head>
   <body>
+    <div id="title"><h3>ReSendMeLater</h3></div>
     <section class="container">
 
-        <input id="date" type="date" class="form-control" placeholder="日付" required autofocus>
-        <input id="memo" type="text" class="form-control" placeholder="メモ" required autofocus>
-        <button id="submit" type="submit" class="btn btn-primary btn-block disabled">ReSendMeLater</button>
+      <input id="date" value=''>
+      <div id="datepicker"></div>
+      <input id="memo" type="text" class="form-control" placeholder="メッセージ" required autofocus>
+        <button id="submit" type="submit" class="btn btn-primary btn-block disabled">Add</button>
 
     </section>
     <script src="../../js/jquery/jquery.min.js"></script>
     <script src="../../js/bootstrap/bootstrap.min.js"></script>
+    <script src="../../js/bootstrap/datepicker/bootstrap-datepicker.js"></script>
     <script src="popup.js"></script>
+    <script src="../../src/util.js"></script>
   </body>
 </html>

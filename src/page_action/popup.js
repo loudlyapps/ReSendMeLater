@@ -23,12 +23,17 @@ $(document).ready( function() {
         // }, 1000);
     });
 
-    $('#date').change(function(e) {
-        console.log($('#date').val());
-        var date = $('#date').val().replace(/\-/g, '/');
-        if (/^\d{4}\/\d{2}\/\d{2}$/.test(date)) {
-            $('#submit').removeClass('disabled');
-            console.log($('#date').val());
-        }
+    $('#datepicker').datepicker({
+        format: 'yyyy/mm/dd',
+        language: 'ja',
+        todayHighlight: true,
+        startDate: Date()
+    }).on('changeDate', function(e) {
+        var d = e['date'];
+        var yyyy = d.getFullYear();
+        var mm = add_zero(d.getMonth() + 1, 2);
+        var dd = add_zero(d.getDate(), 2);
+        $('#date').val(yyyy + '/' + mm + '/' + dd);
+        $('#submit').removeClass('disabled');
     });
 });
