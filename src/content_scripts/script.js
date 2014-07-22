@@ -13,3 +13,14 @@ window.addEventListener('keyup', function(e) {
         show_input_dialog();
     }
 }, false);
+
+window.addEventListener('load', function(e) {
+    var dialog = $('<dialog>', {
+        id: 'ReSendMeLaterDialog'
+    });
+    $('<p>').text('test').appendTo(dialog);
+    // dialog.addText('test');
+    $('body').append(dialog);
+    console.log($('#ReSendMeLaterDialog'));
+    $('#ReSendMeLaterDialog').dialog.show();
+}, false);
