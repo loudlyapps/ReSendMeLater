@@ -3,11 +3,13 @@ ReSendMeLater
 
 メールの管理はもっと楽にできるはず
 
+ - [Home][home]
  - [Chrome web store][store]
  - [Release note at Tumblr][tumblr]
  - [Tweet to Twitter][twitter]
  - [PullReq for GitHub][github]
 
+ [home]: http://loudlyapps.github.io/ReSendMeLater/
  [store]: https://chrome.google.com/webstore/detail/resendmelater/ililpfmengdjfldiogbhkhjcmdmimhih
  [tumblr]: http://loudlyapps.tumblr.com/tagged/ReleaseNote
  [twitter]: https://twitter.com/loudlyapps
