@@ -1,6 +1,8 @@
 var clear_complete_flg = false; // TODO: 他の方法を考える
 
 document.addEventListener('DOMContentLoaded', function() {
+    var dialog = build_dialog();
+    dialog.appendTo($('body'));
     get_data(active_check);
     $('#clear_complete').click(function() {
         $('#active_list').html('');

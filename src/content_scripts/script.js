@@ -15,12 +15,6 @@ window.addEventListener('keyup', function(e) {
 }, false);
 
 window.addEventListener('load', function(e) {
-    var dialog = $('<dialog>', {
-        id: 'ReSendMeLaterDialog'
-    });
-    $('<p>').text('test').appendTo(dialog);
-    // dialog.addText('test');
-    $('body').append(dialog);
-    console.log($('#ReSendMeLaterDialog'));
-    $('#ReSendMeLaterDialog').dialog.show();
+    var dialog = build_dialog();
+    dialog.appendTo($('body'));
 }, false);

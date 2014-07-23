@@ -195,6 +195,118 @@ function resended(id) {
     });
 }
 
+function build_dialog() {
+
+    var logo = $('<img>')
+            .css('float', 'left')
+            .attr('src', chrome.extension.getURL('icons/icon38.png'));
+
+    var title = $('<div>').text('ReSendMeLater')
+            .css({
+                'margin': '5px',
+                'font-size': '18pt'
+            });
+
+    var cancel = $('<div>').text('cancel')
+            .css({
+                'cursor': 'pointer',
+                'padding-top': '8px',
+                'float': 'right',
+                'margin-right': '10px'
+            })
+            .click(function() {
+                $('#ReSendMeLaterInput').val('').change();
+                document.querySelector('#ReSendMeLaterDialog').close();
+            });
+
+    var add = $('<input type="submit">').val('Add')
+            .attr({
+                'id': 'ReSendMeLaterSubmit',
+                'role': 'button',
+                'disabled': 'disabled',
+                'type': 'submit',
+                'tabIndex': '0'
+            })
+            .css({
+                'padding': '6px 12px',
+                'color': '#fff',
+                'text-align': 'center',
+                'border-radius': '4px',
+                'float': 'right',
+                'background': '#428bca',
+                'border-color': '#357cbd',
+                'opacity': '.65',
+                'display': 'block',
+                'border': '1px solid transparent'
+            })
+            .hover(
+                function() {
+                    if ($('#ReSendMeLaterSubmit').attr('disabled') != 'disabled') {
+                        $(this).css({
+                            'background': '#3071a9',
+                            'border-color': '#285e8e'
+                        });
+                    }
+                },
+                function() {
+                    $(this).css({
+                        background: '#428bca',
+                        'border-color': '#357cbd'
+                    });
+                }
+            );
+
+    var button = $('<div>').append(add).append(cancel);
+
+    var input_change = function(val) {
+        if (/^\d{4}\/\d{2}\/\d{2}/.test(str2date(val.split(' ')[0]))) {
+            $('#ReSendMeLaterSubmit')
+                .css('opacity', 1.0)
+                .removeAttr('disabled');
+        } else {
+            $('#ReSendMeLaterSubmit')
+                .css('opacity', '.65')
+                .attr('disabled', 'disabled');
+        }
+    };
+    var input = $('<input type="text">')
+            .attr({
+                'id': 'ReSendMeLaterInput',
+                'placeholder': '2014/8/5 息子の誕生日プレゼント候補'
+            })
+            .css({
+                'font-family': 'arial,sans-serif',
+                'margin': '10px',
+                'width': '350px',
+                'padding': "10px",
+                'border': "1px solid silver"
+            })
+            .change(function() {
+                input_change($(this).val());
+            })
+            .keyup(function(e) {
+                if (e.which == 27) {
+                    document.querySelector('#ReSendMeLaterDialog').close();
+                } else {
+                    input_change($(this).val());
+                }
+            });
+
+    var dialog = $('<dialog>', { id: 'ReSendMeLaterDialog' })
+            .css({
+                'padding': '1em',
+                'width': '400px',
+                'font-size': '12pt',
+                'font-family': 'trebuchet MS',
+                'border': '1px solid rgba(0, 0, 0, 0.3)',
+                'border-radius': '3px',
+                'box-shadow': '0 3px 7px rgba(0, 0, 0, 0.3)',
+                'background': 'rgba(255,255,255,0.98)'
+            }).append(logo).append(title).append(input).append(button);
+
+    return dialog;
+}
+
 function clear_storage() {
     chrome.storage.sync.clear();
 }
@@ -206,20 +318,19 @@ function display_storage() {
 }
 
 function show_input_dialog(threadId, str) {
-    var text = str || "2014/8/5 息子の誕生日プレゼント候補";
-    var result = prompt("未読化したい日付とメッセージ(オプション)を入力してください。", text);
-    if (result && result.length > 0) {
-
+    var dialog = document.querySelector('#ReSendMeLaterDialog');
+    if (str) { $('#ReSendMeLaterInput').val(str); }
+    $('#ReSendMeLaterSubmit').click(function() {
         var id = (threadId || location.href.replace(/^.*\/([a-z0-9]+)$/, "$1"));
-
+        var result = $('#ReSendMeLaterInput').val();
         if (threadId) {
             parseData(result, id);
         } else {
             chrome.extension.sendMessage({text: result, id: id}, function(response) {});
         }
-    } else if (result.length == 0) {
-        del_data(threadId);
-    }
+        dialog.close();
+    });
+    dialog.showModal();
 }
 
 function parseData(text, id) {
