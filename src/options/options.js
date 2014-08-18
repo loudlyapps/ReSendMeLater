@@ -104,7 +104,8 @@ function render(laterData, area) {
         var message = $('<div>', {
             class: 'message',
             text: d.message
-        }).appendTo(item).click(function() {
+        }).appendTo(item).click({args: d}, function(eo) {
+            var d = eo.data.args;
             var str = d.date + ' ' + d.message;
             show_input_dialog(d.id, str);
         });
