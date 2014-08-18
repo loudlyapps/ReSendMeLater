@@ -220,7 +220,7 @@ function show_input_dialog(threadId, str) {
         } else {
             chrome.extension.sendMessage({text: result, id: id}, function(response) {});
         }
-    } else if (result.length == 0) {
+    } else if (result && result.length == 0) {
         del_data(threadId);
     }
 }
