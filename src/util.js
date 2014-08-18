@@ -95,7 +95,8 @@ function later_check() {
     });
 }
 
-function send_newmail(url, token, item) {
+function send_newmail(url, token, _item) {
+    var item = _item;
     var mail = "";
     mail += "From: ReSendMeLater\n";
     mail += "\n";
@@ -118,9 +119,10 @@ function send_newmail(url, token, item) {
     };
 }
 
-function unread_message(url, token, item, thread, cb) {
+function unread_message(url, token, _item, thread, cb) {
     var messages = JSON.parse(thread.responseText).messages;
     var messageid = messages[messages.length - 1].id;
+    var item = _item;
     console.log(messageid);
 
     var message = new XMLHttpRequest();
@@ -166,10 +168,11 @@ function get_snippet(threadId, cb) {
     });
 }
 
-function resend(item, cb) {
+function resend(_item, cb) {
     chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
         var url = 'https://www.googleapis.com/gmail/v1/users/me/';
         var thread = new XMLHttpRequest();
+        var item = _item;
         thread.open('GET', url + 'threads/' + item.id);
         thread.setRequestHeader('Authorization', 'Bearer ' + token);
         thread.send();
